@@ -1,6 +1,7 @@
 package com.jwn.moviedirectory.Activities;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,13 +11,23 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.Response.Listener;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.jwn.moviedirectory.Data.MovieRecyclerViewAdapter;
 import com.jwn.moviedirectory.Model.Movie;
 import com.jwn.moviedirectory.R;
+import com.jwn.moviedirectory.Util.Constants;
+import com.jwn.moviedirectory.Util.Prefs;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private MovieRecyclerViewAdapter movieRecyclerViewAdapter;
     private List<Movie> movieList;
     private RequestQueue queue;
+    private JsonObjectRequest jsonObjectRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +63,65 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         movieList = new ArrayList<>();
+
+        Prefs prefs = new Prefs(MainActivity.this);
+        String search = prefs.getSearch();
+        getMovies(search);
     }
 
     // get movies
     public List<Movie> getMovies(String searchTerm) {
-        movieList.clear();// clear & repopulate list everytime its called
+        // clear & repopulate list every time its called
+        movieList.clear();
+
+        //build the JSON request
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
+                Constants.URL_LEFT + searchTerm + Constants.URL_RIGHT + Constants.API_KEY, null, new Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                try{
+                    JSONArray moviesArray = response.getJSONArray("Search");
+
+                    for (int i = 0; i < moviesArray.length(); i++) {
+
+                        JSONObject movieObj = moviesArray.getJSONObject(i);
+
+                        Movie movie = new Movie();
+                        movie.setTitle(movieObj.getString("Title"));
+                        movie.setYear("Year Released: " + movieObj.getString("Year"));
+                        movie.setMovieType("Type: " + movieObj.getString("Type"));
+                        movie.setPoster(movieObj.getString("Poster"));
+                        movie.setImdbId(movieObj.getString("imdbID"));
 
 
+                         Log.d("Movies: ", movie.getTitle());
+                        //Log.d("Here it is", " at last");
+                        movieList.add(movie);
+
+
+                    }
+
+                     // Very important!! Otherwise nothing will be displayed.
+
+                    movieRecyclerViewAdapter.notifyDataSetChanged();//Important!!
+
+
+                }catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        queue.add(jsonObjectRequest);
+
+        return movieList;
     }
 
 
