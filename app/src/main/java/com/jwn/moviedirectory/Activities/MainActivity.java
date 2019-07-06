@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     private RequestQueue queue;
     private JsonObjectRequest jsonObjectRequest;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,14 +49,14 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         queue = Volley.newRequestQueue(this);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
+
             }
         });
 
@@ -66,8 +68,14 @@ public class MainActivity extends AppCompatActivity {
 
         Prefs prefs = new Prefs(MainActivity.this);
         String search = prefs.getSearch();
-        getMovies(search);
+       // getMovies(search);
+        movieList = getMovies(search);
+
+        movieRecyclerViewAdapter = new MovieRecyclerViewAdapter(this,movieList);
+        recyclerView.setAdapter(movieRecyclerViewAdapter);
+        movieRecyclerViewAdapter.notifyDataSetChanged();
     }
+
 
     // get movies
     public List<Movie> getMovies(String searchTerm) {
@@ -96,21 +104,18 @@ public class MainActivity extends AppCompatActivity {
 
 
                          Log.d("Movies: ", movie.getTitle());
-                        //Log.d("Here it is", " at last");
-                        movieList.add(movie);
 
+                        movieList.add(movie);
 
                     }
 
                      // Very important!! Otherwise nothing will be displayed.
-
                     movieRecyclerViewAdapter.notifyDataSetChanged();//Important!!
 
 
                 }catch (JSONException e) {
                     e.printStackTrace();
                 }
-
 
             }
         }, new Response.ErrorListener() {
@@ -137,8 +142,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
+        // Handle action bar item clicks here. The action automatically
+        // handles clicks on the Home/Up button as long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
@@ -149,4 +154,4 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-}
+}// end MainActivity

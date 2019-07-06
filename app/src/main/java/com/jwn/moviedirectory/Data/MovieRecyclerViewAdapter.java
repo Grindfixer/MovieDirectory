@@ -1,16 +1,17 @@
 package com.jwn.moviedirectory.Data;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jwn.moviedirectory.Activities.MovieDetailActivity;
 import com.jwn.moviedirectory.Model.Movie;
 import com.jwn.moviedirectory.R;
 import com.squareup.picasso.Picasso;
@@ -32,7 +33,6 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
     public MovieRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_row, parent, false);
-
 
         return new ViewHolder(view, context);
     }
@@ -63,13 +63,13 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
             TextView type;
             ImageView poster;
 
-        public ViewHolder(@NonNull View itemView, Context ctx) {
+        public ViewHolder(@NonNull View itemView, final Context ctx) {
             super(itemView);
             context = ctx;
 
             title = itemView.findViewById(R.id.movieTitleID);
             poster = itemView.findViewById(R.id.movieImageID);
-            year = itemView.findViewById(R.id.movieReleaseDateID);
+            year = itemView.findViewById(R.id.movieReleasedID);
             type = itemView.findViewById(R.id.movieCatID);
 
                 // make row clickable
@@ -77,7 +77,13 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
                 @Override
                 public void onClick(View view) {
 
-                    Toast.makeText(context,"Row Tapped", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(context,"Row Tapped", Toast.LENGTH_LONG).show();
+
+                    Movie movie = movieList.get(getAdapterPosition());
+
+                    Intent intent = new Intent(context, MovieDetailActivity.class);
+                    intent.putExtra("movie", movie);
+                    ctx.startActivity(intent);
 
                 }
             });
