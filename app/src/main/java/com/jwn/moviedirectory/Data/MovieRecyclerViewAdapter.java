@@ -69,7 +69,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
 
             title = itemView.findViewById(R.id.movieTitleID);
             poster = itemView.findViewById(R.id.movieImageID);
-            year = itemView.findViewById(R.id.movieReleasedID);
+            year = itemView.findViewById(R.id.movieReleaseID);
             type = itemView.findViewById(R.id.movieCatID);
 
                 // make row clickable
