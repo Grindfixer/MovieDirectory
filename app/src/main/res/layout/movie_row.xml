@@ -74,6 +74,7 @@
             android:layout_below="@id/movieReleaseID"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:layout_toRightOf="@id/movieImageID"
             android:padding="5dp"
             android:text="Category"

@@ -16,6 +16,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -26,8 +27,15 @@
         <RelativeLayout
 
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="5dp">
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+
+
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp">
 
             <ImageView
                 android:id="@+id/movieImageIDDets"
@@ -49,7 +57,8 @@
                 android:layout_toRightOf="@+id/movieImageIDDets"
                 android:paddingLeft="5dp"
                 android:text="Movie Title"
-                android:textSize="15sp"
+                android:textColor="#212121"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -64,6 +73,8 @@
                 android:layout_toRightOf="@+id/movieImageIDDets"
                 android:paddingStart="5dp"
                 android:paddingLeft="5dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 android:text="Released Date: " />
 
             <TextView
@@ -78,6 +89,8 @@
                 android:layout_toRightOf="@+id/movieImageIDDets"
                 android:paddingStart="5dp"
                 android:paddingLeft="5dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 android:text="Category: " />
 
             <TextView
@@ -91,7 +104,9 @@
                 android:layout_toEndOf="@+id/movieImageIDDets"
                 android:layout_toRightOf="@+id/movieImageIDDets"
                 android:paddingLeft="5dp"
-                android:text="Rating: " />
+                android:text="Rating: "
+                android:textSize="16sp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/moviveRuntimeIDDets"
@@ -103,33 +118,39 @@
                 android:layout_marginTop="0dp"
                 android:layout_toEndOf="@+id/movieImageIDDets"
                 android:layout_toRightOf="@+id/movieImageIDDets"
-                android:text="Runtime: " />
+                android:paddingLeft="5dp"
+                android:textSize="16sp"
+                android:text="Runtime: "
+                android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/directedByDet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/movieImageIDDets"
+                android:layout_below="@+id/moviveRuntimeIDDets"
                 android:layout_alignStart="@+id/movieImageIDDets"
                 android:layout_alignLeft="@+id/movieImageIDDets"
                 android:layout_marginStart="0dp"
                 android:layout_marginLeft="0dp"
-                android:layout_marginTop="12dp"
-                android:paddingLeft="4dp"
-                android:text="Directed by: " />
+                android:layout_marginTop="6dp"
+                android:paddingLeft="5dp"
+                android:textSize="16sp"
+                android:text="Directed by: "
+                android:textStyle="bold"/>
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
     <RelativeLayout
         android:id="@+id/relativeView"
-        android:layout_width="368dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@color/cardview_light_background"
+        android:padding="5dp"
+        android:background="@android:color/background_light"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -143,7 +164,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="Actors: " />
+            android:text="Actors: "
+            android:textSize="16sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/writersDet"
@@ -151,7 +174,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/actorsDet"
             android:padding="5dp"
-            android:text="Writers:" />
+            android:textSize="16sp"
+            android:text="Writers:"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/plotDet"
@@ -159,7 +184,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/writersDet"
             android:padding="5dp"
-            android:text="Plot:" />
+            android:textSize="16sp"
+            android:text="Plot:"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/boxOfficeDet"
@@ -167,12 +194,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/plotDet"
             android:padding="5dp"
-            android:text="Box Office:" />
-
+            android:textSize="16sp"
+            android:text="Box Office:"
+            android:textStyle="bold"/>
 
     </RelativeLayout>
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
